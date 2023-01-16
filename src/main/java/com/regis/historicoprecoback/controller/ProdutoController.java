@@ -1,5 +1,6 @@
 package com.regis.historicoprecoback.controller;
 
+import com.regis.historicoprecoback.dto.ErroDTO;
 import com.regis.historicoprecoback.dto.ProdutoRequestDTO;
 import com.regis.historicoprecoback.dto.ProdutoResponseDTO;
 import com.regis.historicoprecoback.dto.ProdutoResponsePageDTO;
@@ -25,7 +26,9 @@ public class ProdutoController {
     public ResponseEntity<Object> cadastrarProduto(@RequestBody ProdutoRequestDTO produtoRequestDto) {
         ProdutoResponseDTO produtoResponseDto = produtoService.listarProdutoPorId(produtoRequestDto.getId());
         if (!produtoResponseDto.getId().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("produto com id " + produtoRequestDto.getId() + " já existe");
+            ErroDTO erroDTO = new ErroDTO();
+            erroDTO.setMotivo("produto com id " + produtoRequestDto.getId() + " já existe");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(erroDTO);
         }
 
         produtoService.cadastrarProduto(produtoRequestDto);

@@ -1,6 +1,7 @@
 package com.regis.historicoprecoback.model;
 
 import jakarta.persistence.*;
+
 import lombok.Data;
 
 import java.io.Serializable;
